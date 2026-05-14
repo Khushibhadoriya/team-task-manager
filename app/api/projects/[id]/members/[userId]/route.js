@@ -10,8 +10,8 @@ export async function DELETE(request, { params }) {
 
   try {
     await connectDB();
-
-    const project = await Project.findById(params.id);
+     const {id, userId} = await params
+    const project = await Project.findById(id);
 
     if (!project) {
       return NextResponse.json(
@@ -29,7 +29,7 @@ export async function DELETE(request, { params }) {
     }
 
     // Cannot remove the owner
-    if (project.owner.toString() === params.userId) {
+    if (project.owner.toString() === userId) {
       return NextResponse.json(
         { message: "Cannot remove the project owner." },
         { status: 400 }
@@ -38,7 +38,7 @@ export async function DELETE(request, { params }) {
 
     // Remove the member using filter
     project.members = project.members.filter(
-      (m) => m.user.toString() !== params.userId
+      (m) => m.user.toString() !== userId
     );
 
     await project.save();

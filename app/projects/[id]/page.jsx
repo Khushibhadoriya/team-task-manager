@@ -371,6 +371,7 @@ export default function ProjectDetailPage() {
       const res  = await fetch(`/api/tasks/${taskId}`, { method: "DELETE" });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);
+      
       setTasks((prev) => prev.filter((t) => t._id !== taskId));
     } catch (err) {
       alert(err.message);

@@ -120,8 +120,8 @@ export async function DELETE(request, { params }) {
 
   try {
     await connectDB();
-
-    const project = await Project.findById(params.id);
+    const {id} = await params
+    const project = await Project.findById(id);
 
     if (!project) {
       return NextResponse.json(
@@ -139,10 +139,10 @@ export async function DELETE(request, { params }) {
     }
 
     // Delete all tasks belonging to this project first
-    await Task.deleteMany({ project: params.id });
+    await Task.deleteMany({ project: id });
 
     // Then delete the project
-    await Project.findByIdAndDelete(params.id);
+    await Project.findByIdAndDelete(id);
 
     return NextResponse.json({
       message: "Project and all its tasks deleted successfully.",
