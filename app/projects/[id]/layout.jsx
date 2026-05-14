@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import Navbar from "@/components/Navbar";
 import Spinner from "@/components/ui/Spinner";
 
 export default function ProjectDetailLayout({ children }) {
@@ -26,7 +25,7 @@ export default function ProjectDetailLayout({ children }) {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <Navbar />
+     
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {children}
       </main>
